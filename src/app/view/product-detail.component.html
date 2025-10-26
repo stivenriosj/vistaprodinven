@@ -1,0 +1,27 @@
+<div class="container">
+  <button routerLink="/">← Volver</button>
+
+  <div *ngIf="loading">Cargando producto...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="product">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p>Precio: {{ product.price | currency }}</p>
+
+    <div class="inventory">
+      <div *ngIf="inventoryLoading">Consultando inventario...</div>
+      <div *ngIf="inventoryError" class="error">{{ inventoryError }}</div>
+      <div *ngIf="quantityAvailable !== null">Disponible: {{ quantityAvailable }}</div>
+    </div>
+
+    <div class="purchase">
+      <label>Cantidad a comprar:
+        <input type="number" [(ngModel)]="purchaseQty" min="1">
+      </label>
+      <button (click)="purchase()" [disabled]="purchaseLoading">Comprar</button>
+      <div *ngIf="purchaseLoading">Procesando compra...</div>
+      <div *ngIf="purchaseError" class="error">{{ purchaseError }}</div>
+    </div>
+  </div>
+</div>

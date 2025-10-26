@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>Productos</h1>
+
+  <div *ngIf="loading">Cargando productos...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <ul *ngIf="!loading && !error">
+    <li *ngFor="let p of items">
+      <a [routerLink]="['/product', p.id]">
+        <strong>{{ p.name }}</strong> - {{ p.price | currency }}
+      </a>
+    </li>
+  </ul>
+
+  <div class="pagination" *ngIf="!loading && totalPages > 0">
+    <button (click)="prev()" [disabled]="page === 0">Anterior</button>
+    <span> Página {{ page + 1 }} de {{ totalPages }} </span>
+    <button (click)="next()" [disabled]="page + 1 >= totalPages">Siguiente</button>
+  </div>
+</div>
